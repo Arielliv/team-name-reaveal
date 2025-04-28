@@ -1,23 +1,18 @@
 'use client';
 
-import { ChakraProvider, createSystem, defaultConfig } from "@chakra-ui/react"
+import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import { ColorModeProvider } from "./color-mode"
 
-const system = createSystem(defaultConfig, {
-  theme: {
-    semanticTokens: {
-      colors: {
-        colorMode: {
-          default: { value: "dark" }
-        }
-      }
-    }
-  }
+const theme = extendTheme({
+  config: {
+    initialColorMode: 'dark',
+    useSystemColorMode: false,
+  },
 })
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ChakraProvider value={system}>
+    <ChakraProvider theme={theme}>
       <ColorModeProvider>
         {children}
       </ColorModeProvider>
